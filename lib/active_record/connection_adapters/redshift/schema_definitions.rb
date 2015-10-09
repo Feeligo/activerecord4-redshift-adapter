@@ -54,7 +54,7 @@ module ActiveRecord
 
         def new_column_definition(name, type, options) # :nodoc:
           column = super
-          column.array = options[:array]
+          column.array = options[:array] if column.respond_to?(:array)
           column
         end
 
