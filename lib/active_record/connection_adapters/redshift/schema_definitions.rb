@@ -12,6 +12,7 @@ module ActiveRecord
       end
 
       class ColumnDefinition < ActiveRecord::ConnectionAdapters::ColumnDefinition
+        attr_accessor :array
       end
 
       class TableDefinition < ActiveRecord::ConnectionAdapters::TableDefinition
