@@ -22,8 +22,13 @@ module ActiveRecord
           if column.type == :uuid && options[:default] =~ /\(\)/
             sql << " DEFAULT #{options[:default]}"
           else
-            super
+            sql = super
           end
+
+          if options[:column].try(:encoding)
+            sql << " encode #{options[:column].encoding}"
+          end
+          sql
         end
 
         def type_for_column(column)
