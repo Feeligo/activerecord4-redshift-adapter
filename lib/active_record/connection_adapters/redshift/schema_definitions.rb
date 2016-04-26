@@ -12,6 +12,7 @@ module ActiveRecord
       end
 
       class ColumnDefinition < ActiveRecord::ConnectionAdapters::ColumnDefinition
+        attr_accessor :encoding
       end
 
       class TableDefinition < ActiveRecord::ConnectionAdapters::TableDefinition
@@ -55,6 +56,7 @@ module ActiveRecord
         def new_column_definition(name, type, options) # :nodoc:
           column = super
           column.array = options[:array] if column.respond_to?(:array)
+          column.encoding = options[:encoding] if column.respond_to?(:encoding)
           column
         end
 

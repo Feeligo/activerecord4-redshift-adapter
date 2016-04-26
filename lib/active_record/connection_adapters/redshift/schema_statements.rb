@@ -22,8 +22,14 @@ module ActiveRecord
           if column.type == :uuid && options[:default] =~ /\(\)/
             sql << " DEFAULT #{options[:default]}"
           else
-            super
+            sql = super
           end
+
+          # Redshift Column Compression Encoding
+          if (encoding_type = options[:column].try(:encoding))
+            sql << " ENCODE #{encoding_type}"
+          end
+          sql
         end
 
         def type_for_column(column)
