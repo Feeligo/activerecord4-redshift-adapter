@@ -25,8 +25,9 @@ module ActiveRecord
             sql = super
           end
 
-          if options[:column].try(:encoding)
-            sql << " encode #{options[:column].encoding}"
+          # Redshift Column Compression Encoding
+          if (encoding_type = options[:column].try(:encoding))
+            sql << " ENCODE #{encoding_type}"
           end
           sql
         end
