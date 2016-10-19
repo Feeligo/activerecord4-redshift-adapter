@@ -13,6 +13,7 @@ module ActiveRecord
 
       class ColumnDefinition < ActiveRecord::ConnectionAdapters::ColumnDefinition
         attr_accessor :encoding
+        attr_accessor :identity
       end
 
       class TableDefinition < ActiveRecord::ConnectionAdapters::TableDefinition
@@ -57,6 +58,7 @@ module ActiveRecord
           column = super
           column.array = options[:array] if column.respond_to?(:array)
           column.encoding = options[:encoding] if column.respond_to?(:encoding)
+          column.identity = options[:identity] if column.respond_to?(:identity)
           column
         end
 
