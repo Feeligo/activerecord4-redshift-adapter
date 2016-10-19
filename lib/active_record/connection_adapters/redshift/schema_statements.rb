@@ -29,6 +29,19 @@ module ActiveRecord
           if (encoding_type = options[:column].try(:encoding))
             sql << " ENCODE #{encoding_type}"
           end
+
+          # Redshift Identity Column. Can be : true, false, [seed, increment]
+          if (identity_params = options[:column].try(:identity))
+            seed = 1
+            increment = 1
+            if identity_params.is_a? Array
+              seed = identity_params[0]
+              increment = identity_params[1]
+            end
+            if identity_params != false
+              sql << " IDENTITY(#{seed} , #{increment})"
+            end
+          end
           sql
         end
 
