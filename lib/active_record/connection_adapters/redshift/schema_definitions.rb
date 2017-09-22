@@ -14,6 +14,7 @@ module ActiveRecord
       class ColumnDefinition < ActiveRecord::ConnectionAdapters::ColumnDefinition
         attr_accessor :encoding
         attr_accessor :identity
+        attr_accessor :sortkey
       end
 
       class TableDefinition < ActiveRecord::ConnectionAdapters::TableDefinition
@@ -59,6 +60,7 @@ module ActiveRecord
           column.array = options[:array] if column.respond_to?(:array)
           column.encoding = options[:encoding] if column.respond_to?(:encoding)
           column.identity = options[:identity] if column.respond_to?(:identity)
+          column.sortkey = options[:sortkey] if column.respond_to?(:sortkey)
           column
         end
 

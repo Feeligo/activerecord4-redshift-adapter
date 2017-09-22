@@ -38,6 +38,14 @@ module ActiveRecord
             end
             sql << " IDENTITY(#{seed} , #{increment})"
           end
+
+          # Redshift Sortkey Column. Can be : true, false
+          if (sortkey_params = options[:column].try(:sortkey))
+            if sortkey_params != false
+              sql << " SORTKEY"
+            end
+          end
+
           sql
         end
 
